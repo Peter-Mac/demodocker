@@ -178,7 +178,9 @@ Check there's no errors being reported back.
 Then create the new rails application in the app container
 
 ```sh
-dc -f docker-compose-dev.yml run --rm app bundle exec rails new . -d postgresql
+dc -f docker-compose-dev.yml run --rm app /bin/bash
+
+$ bundle exec rails new . -d postgresql
 ```
 
 
