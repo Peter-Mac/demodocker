@@ -1,0 +1,63 @@
+version: '2'
+volumes:
+  # We'll define a volume that will store the data from the postgres databases:
+  postgres-data:
+    driver: local
+
+  public:
+    driver: local
+
+  app:
+    driver: local
+
+services:
+  #The postgres database service
+  postgres:
+    image: postgres:9.4
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env-dev
+    volumes:
+      # mount the 'postgres-data' volume into the location Postgres stores it's data:
+      - postgres-data:/var/lib/postgresql/data
+
+  # The web service
+  app: &app_base
+    build:
+      context: ./
+      dockerfile: Dockerfile-dev
+    command: /usr/src/docker/startup.sh
+    env_file:
+        - .env-dev
+    volumes:
+
+      - ./app:/usr/src/app
+
+    volumes_from:
+        - gems
+
+    ports:
+      - '3000:3000'
+
+    # Keep the stdin open, so we can attach to our app container's process and do things such as
+    # byebug, etc:
+    stdin_open: true
+
+    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
+    tty: true
+
+    links:
+
+      # Include a link to the 'db' (postgres) container, making it visible from the container
+      # using the 'postgres.local' hostname (which is not necessary, but I'm doing it here to
+      # illustrate that you can play with this):
+      - postgres:postgres.local
+    depends_on:
+      - gems
+
+  gems:
+    image: busybox
+    command: /bin/sh
+    volumes:
+      - /ruby_gems
