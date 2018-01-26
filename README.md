@@ -35,9 +35,11 @@ Firstly ensure VirtualBox is running with a running VM (using default in my case
 
 Create a host machine - note: can be named anything, I'm using the name of the app to identify it.
 
+Note: I've created two aliases for docker (save on the typing) dm for docker-machine and dc for docker-compose.
+
 ```sh
 $ cd projects/dockerdemo
-$ docker-machine create dockerdemo
+$ dm create dockerdemo
 $ eval "$(docker-machine env dockerdemo)"
 ```
 
@@ -166,9 +168,9 @@ services:
 
 Next build the docker containers and get them up and running
 ```sh
-dc -f docker-compose-dev build
-dc -f docker-compose-dev up --no-start
-dc -f docker-compose-dev up
+dc -f docker-compose-dev.yml build
+dc -f docker-compose-dev.yml up --no-start
+dc -f docker-compose-dev.yml up
 ```
 
 Check there's no errors being reported back.
