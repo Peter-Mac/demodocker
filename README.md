@@ -183,6 +183,9 @@ dc -f docker-compose-dev.yml run --rm app /bin/bash
 $ bundle exec rails new . -d postgresql
 ```
 
+This creates the basic folder structure for a rail app and exposese them in the app folder within the project structure.
 
-now to get the created folders exposed to the outside world
-dc -f docker-compose-dev up —no-start
+You can now start adding in other services as needed by your application.
+
+Don't forget to git init and push the base to your repository of choice.
+
