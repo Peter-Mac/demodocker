@@ -31,7 +31,7 @@ The process involves creating a basic docker machine
 
 Firstly ensure VirtualBox is running with a running VM (using default in my case).
 
-##Get Docker running
+## Get Docker running
 
 Create a host machine - note: can be named anything, I'm using the name of the app to identify it.
 
