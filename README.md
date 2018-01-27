@@ -179,11 +179,21 @@ Then create the new rails application in the app container
 
 ```sh
 dc -f docker-compose-dev.yml run --rm app /bin/bash
+```
 
+You're now in the /usr/src/app folder on the vm.
+
+```sh
 $ bundle exec rails new . -d postgresql
 ```
 
 This creates the basic folder structure for a rail app and exposese them in the app folder within the project structure.
+
+Move the contents of the newly created app/app folder back
+
+```sh
+$ mv app/* ./; rm -rf app
+```
 
 You can now start adding in other services as needed by your application.
 
